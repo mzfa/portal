@@ -40,7 +40,7 @@ class VariabelController extends Controller
                 ]);
                 // dd($variabel['subvariabel']);
             }
-        }
+        } 
         // dd($variabel);
         return view('variabel.index', compact('variabel'));
     }

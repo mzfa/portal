@@ -44,8 +44,8 @@
                                             <td>
                                                 <h5>{{ strtoupper($item['nama_variabel']) }}</h5>
                                             </td>
-                                            <td>{{ $item['bulanan'] }}</td>
-                                            <td>{{ $item['harian'] }}</td>
+                                            <td id="{{ $item['variabel_id'].'-bulanan' }}">{{ $item['bulanan'] }}</td>
+                                            <td id="{{ $item['variabel_id'].'-harian' }}">{{ $item['harian'] }}</td>
                                             @for ($i=1; $i <= $jumHari ; $i++)
                                                 @php
                                                     $variabel_id = $item['variabel_id'];
@@ -55,11 +55,27 @@
                                                         $total += floatval($transaksi->value);
                                                     }
                                                 @endphp
-                                                <td>@isset($transaksi) {{ $transaksi->value }} @endisset</td>
+                                                <td id="{{ $item['variabel_id'].'-'.$i }}">@isset($transaksi) {{ $transaksi->value }} @endisset</td>
                                             @endfor
-                                            <td>{{ $total/$jumHari }}</td>
+                                            <td id="{{ $item['variabel_id'].'-total' }}">
+                                                @if($item['jenis_variabel'] == "1") 
+                                                {{ round($total/$jumHari,1) }} 
+                                                @else 
+                                                {{ round($total,1) }} 
+                                                @endif
+                                            </td>
+                                            <td  id="{{ $item['variabel_id'].'-capaian' }}">
+                                                @if($item['jenis_variabel'] == "1") 
+                                                {{ round((($total/$jumHari)/floatval($item['bulanan'])) *100) }} %
+                                                @else 
+                                                {{ round((($total)/floatval($item['bulanan'])) *100) }} %
+                                                @endif
+                                            </td>
                                             @php $total = 0; @endphp
                                         </tr>
+                                        @php
+                                            $total_harian = 0;
+                                        @endphp
                                         @foreach ($item['subvariabel'] as $subvariabel)
                                             <tr>
                                                 <td>
@@ -75,11 +91,56 @@
                                                         $tanggal = '0'.$i;
                                                         
                                                         $transaksi = DB::table('transaksi_var')->where(['variabel_id' => $variabel_id,'tanggal' => $tanggal,'bulan' => $bulan,'tahun' => $tahun])->whereNull('deleted_at')->first();
+                                                        if(isset($transaksi)){
+                                                            $total += floatval($transaksi->value);
+                                                        }
                                                     @endphp
-                                                    <td>@isset($transaksi) {{ $transaksi->value }} @endisset</td>
+                                                    <td>@isset($transaksi) 
+                                                        {{ $transaksi->value }} 
+                                                        <script>
+                                                            var data = document.getElementById("{{ $item['variabel_id'].'-'.$i }}").innerHTML;
+                                                            document.getElementById("{{ $item['variabel_id'].'-'.$i }}").innerHTML = Number(data) + Number('{{ $transaksi->value }}');
+                                                            // console.log(data);
+                                                        </script>
+                                                    @endisset</td>
                                                 @endfor
+                                                <td>
+                                                    @if($subvariabel['jenis_variabel'] == "1") 
+                                                    {{ round($total/$jumHari,1) }} 
+                                                    @else 
+                                                    {{ round($total,1) }} 
+                                                    @endif
+                                                </td>
+                                                @php
+                                                    $total_harian += $total;
+                                                @endphp
+                                                <td>
+                                                    @if($subvariabel['jenis_variabel'] == "1") 
+                                                    {{ round((($total/$jumHari)/floatval($subvariabel['bulanan'])) *100) }} %
+                                                    @else 
+                                                    {{ round((($total)/floatval($subvariabel['bulanan'])) *100) }} %
+                                                    @endif
+                                                    
+                                                </td>
+                                                @php $total = 0; @endphp
                                             </tr>
                                         @endforeach
+                                        <script>
+                                            var data = document.getElementById("{{ $item['variabel_id'].'-total' }}").innerHTML;
+                                            if("{{ $total_harian }}" != 0){
+                                                document.getElementById("{{ $item['variabel_id'].'-total' }}").innerHTML = Number('{{ $total_harian }}');
+                                            }
+                                            var capaian = document.getElementById("{{ $item['variabel_id'].'-capaian' }}").innerHTML;
+                                            var total_capaian = (Number('{{ $total_harian }}')/Number("{{ $item['bulanan'] }}")) * 100;
+                                            if("{{ $total_harian }}" != 0){
+                                                document.getElementById("{{ $item['variabel_id'].'-capaian' }}").innerHTML = total_capaian.toFixed() + "%";
+                                            }
+                                            // document.getElementById("{{ $item['variabel_id'].'-total' }}").innerHTML = (Number(data) + Number('{{ $total_harian }}'))/Number("{{ $item['bulanan'] }}");
+                                            // console.log(data);
+                                        </script>
+                                        @php
+                                            $total_harian = 0;
+                                        @endphp
                                     @endforeach
                                     {{-- @foreach ($variabel as $item)
                                         <tr>

@@ -23,13 +23,14 @@ class PortalController extends Controller
         ->first();
         $pecah_array = explode('|', $user_akses->akses_bagian);
         $list_variabel = DB::table('variabel')->whereNull('deleted_at')->whereIn('variabel.variabel_id', $pecah_array)->get();
-        $data_variabel = DB::table('variabel')->whereNull('deleted_at')->whereIn('variabel.variabel_id', $pecah_array)->get();
+        $data_variabel = DB::table('variabel')->where(['variabel.parent_id' => 0])->whereNull('deleted_at')->whereIn('variabel.variabel_id', $pecah_array)->get();
         $variabel = [];
         foreach($data_variabel as $key => $item)
         {
             array_push($variabel, [
                 'variabel_id' => $item->variabel_id,
                 'nama_variabel' => $item->nama_variabel,
+                'jenis_variabel' => $item->jenis_variabel,
                 'harian' => $item->harian,
                 'bulanan' => $item->bulanan,
                 'parent_id' => $item->parent_id,
@@ -43,6 +44,7 @@ class PortalController extends Controller
                 array_push($variabel[$key]["subvariabel"], [
                     'variabel_id' => $sub->variabel_id,
                     'nama_variabel' => $sub->nama_variabel,
+                    'jenis_variabel' => $sub->jenis_variabel,
                     'harian' => $sub->harian,
                     'bulanan' => $sub->bulanan,
                 ]);
