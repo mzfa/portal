@@ -53,6 +53,47 @@ class PortalController extends Controller
         // dd($variabel);
         return view('portal.index', compact('data','variabel','list_variabel'));
     }
+    public function monitor()
+    {
+        $data = DB::table('transaksi_var')->whereNull('deleted_at')->get();
+        $user_id = Auth::user()->id;
+        $user_akses = DB::table('users')
+        ->leftJoin('user_akses', 'users.id', '=', 'user_akses.user_id')
+        ->leftJoin('hakakses', 'hakakses.hakakses_id', '=', 'user_akses.hakakses_id')
+        ->where(['users.id' => $user_id])
+        ->first();
+        $pecah_array = explode('|', $user_akses->akses_bagian);
+        $list_variabel = DB::table('variabel')->whereNull('deleted_at')->whereIn('variabel.variabel_id', $pecah_array)->get();
+        $data_variabel = DB::table('variabel')->where(['variabel.parent_id' => 0])->whereNull('deleted_at')->whereIn('variabel.variabel_id', $pecah_array)->get();
+        $variabel = [];
+        foreach($data_variabel as $key => $item)
+        {
+            array_push($variabel, [
+                'variabel_id' => $item->variabel_id,
+                'nama_variabel' => $item->nama_variabel,
+                'jenis_variabel' => $item->jenis_variabel,
+                'harian' => $item->harian,
+                'bulanan' => $item->bulanan,
+                'parent_id' => $item->parent_id,
+                'subvariabel' => []
+            ]);
+            $variabel_id = $item->variabel_id;
+            $subvariabel = DB::table('variabel')->where(['parent_id' => $variabel_id])->whereIn('variabel.variabel_id', $pecah_array)->whereNull('deleted_at')->get();
+            // dd($subvariabel);
+            foreach($subvariabel as $sub)
+            {
+                array_push($variabel[$key]["subvariabel"], [
+                    'variabel_id' => $sub->variabel_id,
+                    'nama_variabel' => $sub->nama_variabel,
+                    'jenis_variabel' => $sub->jenis_variabel,
+                    'harian' => $sub->harian,
+                    'bulanan' => $sub->bulanan,
+                ]);
+            }
+        }
+        // dd($variabel);
+        return view('portal.monitoring', compact('data','variabel','list_variabel'));
+    }
 
     public function store(Request $request){
         $request->validate([

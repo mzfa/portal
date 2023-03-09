@@ -103,6 +103,10 @@
                                     <input type="text" class="form-control" id="harian" name="harian" required>
                                 </div>
                             </div>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" name="jenis_variabel">
+                                <label class="custom-control-label" for="customSwitch1">Total dibagi jumlah bulan?</label>
+                            </div>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -166,6 +170,12 @@
                                 <label for="staticEmail" class="col-sm-2 col-form-label">Target Harian</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="harian" name="harian" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="jenis_variabel">
+                                    <label class="custom-control-label" for="customSwitch1">Total dibagi jumlah bulan?</label>
                                 </div>
                             </div>
                             <input type="hidden" name="parent_id" id="parent_id">

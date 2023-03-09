@@ -85,6 +85,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/variabel/store', 'store');
         Route::post('/variabel/update', 'update');
     });
+    Route::controller(PortalController::class)->middleware('cek_login:portal.monitor')->group(function () {
+        Route::get('/portal/monitor', 'monitor')->name('portal.monitor');
+    });
     Route::controller(PortalController::class)->middleware('cek_login:portal.index')->group(function () {
         Route::get('/portal', 'index')->name('portal.index');
         Route::get('/portal/edit/{id}', 'edit');

@@ -104,7 +104,7 @@
                                 @csrf
                             </form>
                             <a class="nav-link" onclick="return document.getElementById('logout').submit()">
-                                <i class="fa fa-arrow-right"></i> Logout ({{ Auth::user()->name }})
+                                Logout ({{ Auth::user()->name }})
                             </a>
                         </li>
                     </ul>
@@ -194,10 +194,6 @@
     <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    {{-- <script src="{{ asset('assets/dist/js/demo.js') }}"></script> --}}
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    {{-- <script src="{{ asset('assets/dist/js/pages/dashboard.js')}}"></script> --}}
 
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>

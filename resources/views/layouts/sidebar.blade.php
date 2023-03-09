@@ -86,7 +86,6 @@
                         @csrf
                     </form>
                     <a onclick="return document.getElementById('logout').submit()" class="nav-link">
-                        <i class="nav-icon fa fa-arrow-right"></i>
                         <p>
                             Logout
                         </p>

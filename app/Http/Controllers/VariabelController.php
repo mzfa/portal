@@ -22,6 +22,7 @@ class VariabelController extends Controller
             array_push($variabel, [
                 'variabel_id' => $item->variabel_id,
                 'nama_variabel' => $item->nama_variabel,
+                'jenis_variabel' => $item->jenis_variabel,
                 'harian' => $item->harian,
                 'bulanan' => $item->bulanan,
                 'parent_id' => $item->parent_id,
@@ -35,6 +36,7 @@ class VariabelController extends Controller
                 array_push($variabel[$key]["subvariabel"], [
                     'variabel_id' => $sub->variabel_id,
                     'nama_variabel' => $sub->nama_variabel,
+                    'jenis_variabel' => $sub->jenis_variabel,
                     'harian' => $sub->harian,
                     'bulanan' => $sub->bulanan,
                 ]);
@@ -50,11 +52,16 @@ class VariabelController extends Controller
             'nama_variabel' => ['required', 'string'],
         ]);
         $parent_id = 0;
+        $jenis_variabel = null;
         if(isset($request->parent_id)){
             $parent_id = $request->parent_id;
         }
+        if(isset($request->jenis_variabel)){
+            $jenis_variabel = 1;
+        }
         $data = [
             'nama_variabel' => $request->nama_variabel,
+            'jenis_variabel' => $jenis_variabel,
             'harian' => $request->harian,
             'bulanan' => $request->bulanan,
             'created_by' => Auth::user()->id,
@@ -72,38 +79,26 @@ class VariabelController extends Controller
         // $id = Crypt::decrypt($id);
         // dd($data);
         $text = "Data tidak ditemukan";
-        if($data = DB::table('variabel')->where(['variabel_id' => $id])->get()){
-
-            $text = '<div class="mb-3 row">'.
-                    '<label for="staticEmail" class="col-sm-2 col-form-label">Nama variabel</label>'.
-                    '<div class="col-sm-10">'.
-                    '<input type="text" class="form-control" id="nama_variabel" name="nama_variabel" value="'.$data[0]->nama_variabel.'" required>'.
-                    '</div>'.
-                '</div>'.
-                '<input type="hidden" class="form-control" id="variabel_id" name="variabel_id" value="'.Crypt::encrypt($data[0]->variabel_id) .'" required>'.
-                '<div class="mb-3 row">'.
-                    '<label for="staticEmail" class="col-sm-2 col-form-label">Target Harian</label>'.
-                    '<div class="col-sm-10">'.
-                    '<input type="text" class="form-control" id="harian" name="harian" value="'.$data[0]->harian.'">'.
-                    '</div>'.
-                '</div>'.
-                '<div class="mb-3 row">'.
-                    '<label for="staticEmail" class="col-sm-2 col-form-label">Target Bulanan</label>'.
-                    '<div class="col-sm-10">'.
-                    '<input type="text" class="form-control" id="bulanan" name="bulanan" value="'.$data[0]->bulanan.'">'.
-                    '</div>'.
-                '</div>';
+        if($data = DB::table('variabel')->where(['variabel_id' => $id])->first()){
+            return view('modal_content.edit_variabel', compact('data'));
         }
         return $text;
-        // return view('admin.variabel.edit');
     }
 
     public function update(Request $request){
         $request->validate([
             'nama_variabel' => ['required', 'string'],
         ]);
+
+        $jenis_variabel = null;
+        if(isset($request->jenis_variabel)){
+            $jenis_variabel = 1;
+        }else{
+            
+        }
         $data = [
             'nama_variabel' => $request->nama_variabel,
+            'jenis_variabel' => $jenis_variabel,
             'harian' => $request->harian,
             'bulanan' => $request->bulanan,
             'updated_by' => Auth::user()->id,
