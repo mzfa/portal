@@ -42,7 +42,7 @@
                                 @php
                                     $month = date('F', mktime(0,0,0,$m));
                                 @endphp
-                                <div class="tab-pane fade show active" id="custom-tabs-two-{{ $m }}" role="tabpanel" aria-labelledby="custom-tabs-two-{{ $m }}-tab">
+                                <div class="tab-pane fade" id="custom-tabs-two-{{ $m }}" role="tabpanel" aria-labelledby="custom-tabs-two-{{ $m }}-tab">
                                     <div class="card">
                                         <div class="card-header">
                                             <h3 class="card-title">Portal Bulan ({{ $month }}) &nbsp;
