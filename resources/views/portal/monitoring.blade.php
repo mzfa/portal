@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered table-hover text-nowrap" style="width: 100%" id="example1">
+                                                <table class="table table-bordered table-hover text-nowrap" style="width: 100%">
                                                     <thead>
                                                         <tr>
                                                             <th>Nama Variabel</th>
