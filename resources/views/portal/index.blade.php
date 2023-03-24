@@ -20,8 +20,8 @@
                                         <th>Nama Variabel</th>
                                         <th>Target Harian</th>
                                         <th>Target Bulanan</th>
-                                        <th class="bg-warning">Total</th>
-                                        <th class="bg-warning">Capaian</th>
+                                        <th class="bg-secondary">Total</th>
+                                        <th class="bg-secondary">Capaian</th>
                                         @php
                                             $bulan = date('m');
                                             $tahun = date('Y');
@@ -46,8 +46,8 @@
                                             </td>
                                             <td id="{{ $item['variabel_id'] . '-bulanan' }}">{{ $item['bulanan'] }}</td>
                                             <td id="{{ $item['variabel_id'] . '-harian' }}">{{ $item['harian'] }}</td>
-                                            <td class="bg-warning" id="{{ $item['variabel_id'] . '-total'}}"></td>
-                                            <td class="bg-warning" id="{{ $item['variabel_id'] . '-capaian'}}"></td>
+                                            <td class="bg-secondary" id="{{ $item['variabel_id'] . '-total'}}"></td>
+                                            <td class="bg-danger" id="{{ $item['variabel_id'] . '-capaian'}}"></td>
                                             @for ($i = 1; $i <= $jumHari; $i++)
                                                 @php
                                                     $variabel_id = $item['variabel_id'];
@@ -72,12 +72,24 @@
                                                     document.getElementById("{{ $item['variabel_id'] . '-total'}}").innerHTML = "{{ round($total / $jumHari, 1) }} ";
                                                     document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").innerHTML =
                                                         "{{ round(($total / $jumHari / floatval($item['bulanan'])) * 100) }} %";
+                                                    var capaian = parseInt("{{ round(($total / $jumHari / floatval($item['bulanan'])) * 100) }}");
+                                                    if(capaian > 90){
+                                                        document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-success";
+                                                    }else if(capaian > 80){
+                                                        document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-warning";
+                                                    }
                                                 </script>
                                             @else
                                                 <script>
                                                     document.getElementById("{{ $item['variabel_id'] . '-total'}}").innerHTML = "{{ round($total, 1) }}";
                                                     document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").innerHTML =
                                                         "{{ round(($total / floatval($item['bulanan'])) * 100) }} %";
+                                                    var capaian = parseInt("{{ round(($total / floatval($item['bulanan'])) * 100) }}");
+                                                    if(capaian > 90){
+                                                        document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-success";
+                                                    }else if(capaian > 80){
+                                                        document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-warning";
+                                                    }
                                                 </script>
                                             @endif
                     
@@ -95,9 +107,9 @@
                                                 </td>
                                                 <td>{{ $subvariabel['bulanan'] }}</td>
                                                 <td>{{ $subvariabel['harian'] }}</td>
-                                                <td class="bg-warning" id="{{ $subvariabel['variabel_id'] . '-totalsub'}}">
+                                                <td class="bg-secondary" id="{{ $subvariabel['variabel_id'] . '-totalsub'}}">
                                                 </td>
-                                                <td class="bg-warning"
+                                                <td class="bg-danger"
                                                     id="{{ $subvariabel['variabel_id'] . '-capaiansub'}}"></td>
                                                 @for ($i = 1; $i <= $jumHari; $i++)
                                                     @php
@@ -130,12 +142,24 @@
                                                             "{{ round($total / $jumHari, 1) }} ";
                                                         document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'}}").innerHTML =
                                                             "{{ round(($total / $jumHari / floatval($subvariabel['bulanan'])) * 100) }} %";
+                                                        var capaian = parseInt("{{ round(($total / $jumHari / floatval($subvariabel['bulanan'])) * 100) }}");
+                                                        if(capaian > 90){
+                                                            document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'}}").className = "bg-success";
+                                                        }else if(capaian > 80){
+                                                            document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'}}").className = "bg-warning";
+                                                        }
                                                     </script>
                                                 @else
                                                     <script>
                                                         document.getElementById("{{ $subvariabel['variabel_id'] . '-totalsub'}}").innerHTML = "{{ round($total, 1) }}";
                                                         document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'}}").innerHTML =
                                                             "{{ round(($total / floatval($subvariabel['bulanan'])) * 100) }} %";
+                                                        var capaian = parseInt("{{ round(($total / floatval($subvariabel['bulanan'])) * 100) }}");
+                                                        if(capaian > 90){
+                                                            document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'}}").className = "bg-success";
+                                                        }else if(capaian > 80){
+                                                            document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'}}").className = "bg-warning";
+                                                        }
                                                     </script>
                                                 @endif
                                                 @php
@@ -153,6 +177,12 @@
                                             var total_capaian = (Number('{{ $total_harian }}') / Number("{{ $item['bulanan'] }}")) * 100;
                                             if ("{{ $total_harian }}" != 0) {
                                                 document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").innerHTML = total_capaian.toFixed() + "%";
+                                                if(total_capaian > 90){
+                                                    // console.log(total_capaian)
+                                                    document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-success";
+                                                }else if(capaian > 80){
+                                                    document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-warning";
+                                                }
                                             }
                                             // document.getElementById("{{ $item['variabel_id'] . '-total' }}").innerHTML = (Number(data) + Number('{{ $total_harian }}'))/Number("{{ $item['bulanan'] }}");
                                             // console.log(data);
