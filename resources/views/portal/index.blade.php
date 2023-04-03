@@ -18,8 +18,8 @@
                                 <thead>
                                     <tr>
                                         <th>Nama Variabel</th>
-                                        <th>Target Harian</th>
                                         <th>Target Bulanan</th>
+                                        <th>Target Harian</th>
                                         <th class="bg-secondary">Total</th>
                                         <th class="bg-secondary">Capaian</th>
                                         @php

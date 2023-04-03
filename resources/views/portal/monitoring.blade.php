@@ -57,8 +57,8 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Nama Variabel</th>
-                                                            <th>Target Harian</th>
                                                             <th>Target Bulanan</th>
+                                                            <th>Target Harian</th>
                                                             <th class="bg-warning">Total</th>
                                                             <th class="bg-warning">Capaian</th>
                                                             @php
