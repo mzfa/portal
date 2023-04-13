@@ -114,7 +114,10 @@
                                                 @for ($i = 1; $i <= $jumHari; $i++)
                                                     @php
                                                         $variabel_id = $subvariabel['variabel_id'];
-                                                        $tanggal = '0' . $i;
+                                                        $tanggal = $i;
+                                                        if($i < 10){
+                                                            $tanggal = '0' . $i;
+                                                        }
                                                         
                                                         $transaksi = DB::table('transaksi_var')
                                                             ->where(['variabel_id' => $variabel_id, 'tanggal' => $tanggal, 'bulan' => $bulan, 'tahun' => $tahun])
