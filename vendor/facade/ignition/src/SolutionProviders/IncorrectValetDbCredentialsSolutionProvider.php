@@ -62,6 +62,6 @@ class IncorrectValetDbCredentialsSolutionProvider implements HasSolutionsForThro
 
     protected function usingCorrectDefaultCredentials(): bool
     {
-        return env('DB_USERNAME') === 'root' && env('DB_PASSWORD') === '';
+        return env('DB_USERNAME_PORTAL') === 'root' && env('DB_PASSWORD_PORTAL') === '';
     }
 }

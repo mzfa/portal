@@ -1,18 +1,18 @@
 pgsql:
     image: 'postgres:15'
     ports:
-        - '${FORWARD_DB_PORT:-5432}:5432'
+        - '${FORWARD_DB_PORT_PORTAL:-5432}:5432'
     environment:
-        PGPASSWORD: '${DB_PASSWORD:-secret}'
-        POSTGRES_DB: '${DB_DATABASE}'
-        POSTGRES_USER: '${DB_USERNAME}'
-        POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+        PGPASSWORD: '${DB_PASSWORD_PORTAL:-secret}'
+        POSTGRES_DB: '${DB_DATABASE_PORTAL}'
+        POSTGRES_USER: '${DB_USERNAME_PORTAL}'
+        POSTGRES_PASSWORD: '${DB_PASSWORD_PORTAL:-secret}'
     volumes:
         - 'sail-pgsql:/var/lib/postgresql/data'
         - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
     networks:
         - sail
     healthcheck:
-        test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
+        test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE_PORTAL}", "-U", "${DB_USERNAME_PORTAL}"]
         retries: 3
         timeout: 5s

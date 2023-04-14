@@ -109,17 +109,17 @@ trait InteractsWithDockerComposeServices
         $environment = file_get_contents($this->laravel->basePath('.env'));
 
         if (in_array('pgsql', $services)) {
-            $environment = str_replace('DB_CONNECTION=mysql', "DB_CONNECTION=pgsql", $environment);
-            $environment = str_replace('DB_HOST=127.0.0.1', "DB_HOST=pgsql", $environment);
-            $environment = str_replace('DB_PORT=3306', "DB_PORT=5432", $environment);
+            $environment = str_replace('DB_CONNECTION_PORTAL=mysql', "DB_CONNECTION_PORTAL=pgsql", $environment);
+            $environment = str_replace('DB_HOST_PORTAL=127.0.0.1', "DB_HOST_PORTAL=pgsql", $environment);
+            $environment = str_replace('DB_PORT_PORTAL=3306', "DB_PORT_PORTAL=5432", $environment);
         } elseif (in_array('mariadb', $services)) {
-            $environment = str_replace('DB_HOST=127.0.0.1', "DB_HOST=mariadb", $environment);
+            $environment = str_replace('DB_HOST_PORTAL=127.0.0.1', "DB_HOST_PORTAL=mariadb", $environment);
         } else {
-            $environment = str_replace('DB_HOST=127.0.0.1', "DB_HOST=mysql", $environment);
+            $environment = str_replace('DB_HOST_PORTAL=127.0.0.1', "DB_HOST_PORTAL=mysql", $environment);
         }
 
-        $environment = str_replace('DB_USERNAME=root', "DB_USERNAME=sail", $environment);
-        $environment = preg_replace("/DB_PASSWORD=(.*)/", "DB_PASSWORD=password", $environment);
+        $environment = str_replace('DB_USERNAME_PORTAL=root', "DB_USERNAME_PORTAL=sail", $environment);
+        $environment = preg_replace("/DB_PASSWORD_PORTAL=(.*)/", "DB_PASSWORD_PORTAL=password", $environment);
 
         if (in_array('memcached', $services)) {
             $environment = str_replace('MEMCACHED_HOST=127.0.0.1', 'MEMCACHED_HOST=memcached', $environment);
@@ -165,8 +165,8 @@ trait InteractsWithDockerComposeServices
 
         $phpunit = file_get_contents($path);
 
-        $phpunit = preg_replace('/^.*DB_CONNECTION.*\n/m', '', $phpunit);
-        $phpunit = str_replace('<!-- <env name="DB_DATABASE" value=":memory:"/> -->', '<env name="DB_DATABASE" value="testing"/>', $phpunit);
+        $phpunit = preg_replace('/^.*DB_CONNECTION_PORTAL.*\n/m', '', $phpunit);
+        $phpunit = str_replace('<!-- <env name="DB_DATABASE_PORTAL" value=":memory:"/> -->', '<env name="DB_DATABASE_PORTAL" value="testing"/>', $phpunit);
 
         file_put_contents($this->laravel->basePath('phpunit.xml'), $phpunit);
     }

@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login - {{ env('APP_NAME') }}</title>
-    <link rel="icon" href="{{ asset(env('APP_LOGO')) }}" type="image/png">
+    <title>Login - {{ env('APP_NAME_PORTAL') }}</title>
+    <link rel="icon" href="{{ asset(env('APP_LOGO_PORTAL')) }}" type="image/png">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -18,13 +18,13 @@
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page"  style="background: url({{ url('assets/dist/img/gedung_rs.png') }}) no-repeat center center fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <img src="{{ asset(env('APP_LOGO')) }}" style="width:100%" alt="{{ env('APP_NAME') }}">
-                <h1>{{ env('APP_NAME') }}</h1>
+                <img src="{{ asset(env('APP_LOGO_PORTAL')) }}" style="width:100%" alt="{{ env('APP_NAME_PORTAL') }}">
+                <h1>{{ env('APP_NAME_PORTAL') }}</h1>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>

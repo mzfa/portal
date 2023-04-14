@@ -76,7 +76,7 @@
                             </div>
                             <table>
                                 <tr>
-                                    <td width="30%"><img src="{{ asset(env('APP_LOGO')) }}" style="width: 90%"
+                                    <td width="30%"><img src="{{ asset(env('APP_LOGO_PORTAL')) }}" style="width: 90%"
                                             alt=""></td>
                                     <th align="left">
                                         <h2>Nota Dinas</h2>

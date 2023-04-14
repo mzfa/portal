@@ -8,11 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="generator" content="">
-    <title>Login - {{ env('APP_NAME')}}</title>
+    <title>Login - {{ env('APP_NAME_PORTAL')}}</title>
 
     <!-- manifest meta -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.js') }}on" />
+    <link rel="manifest" href="manifest.json" />
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="{{ asset('assets/img/favicon180.png') }}" sizes="180x180">

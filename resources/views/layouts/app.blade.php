@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ env('APP_NAME') }}</title>
-    <link rel="icon" href="{{ asset(env('APP_LOGO')) }}" type="image/png">
+    <title>{{ env('APP_NAME_PORTAL') }}</title>
+    <link rel="icon" href="{{ asset(env('APP_LOGO_PORTAL')) }}" type="image/png">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -46,7 +46,7 @@
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <a href="{{ url('/') }}" class="navbar-brand">
-                    <img src="{{ asset(env('APP_LOGO')) }}" alt="RSU PEKERJA"
+                    <img src="{{ asset(env('APP_LOGO_PORTAL')) }}" alt="RSU PEKERJA"
                         class="brand-image img-circle elevation-3" style="opacity: .8;width:30%">
                     <span class="brand-text font-weight-light">RS Umum Pekerja</span>
                 </a>

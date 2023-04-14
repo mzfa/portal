@@ -177,9 +177,9 @@ class PdoSessionHandler extends AbstractSessionHandler
      *  * db_data_col: The column where to store the session data [default: sess_data]
      *  * db_lifetime_col: The column where to store the lifetime [default: sess_lifetime]
      *  * db_time_col: The column where to store the timestamp [default: sess_time]
-     *  * db_username: The username when lazy-connect [default: '']
-     *  * db_password: The password when lazy-connect [default: '']
-     *  * db_connection_options: An array of driver-specific connection options [default: []]
+     *  * DB_USERNAME_PORTAL: The username when lazy-connect [default: '']
+     *  * DB_PASSWORD_PORTAL: The password when lazy-connect [default: '']
+     *  * DB_CONNECTION_PORTAL_options: An array of driver-specific connection options [default: []]
      *  * lock_mode: The strategy for locking, see constants [default: LOCK_TRANSACTIONAL]
      *
      * @param \PDO|string|null $pdoOrDsn A \PDO instance or DSN string or URL string or null
@@ -206,9 +206,9 @@ class PdoSessionHandler extends AbstractSessionHandler
         $this->dataCol = $options['db_data_col'] ?? $this->dataCol;
         $this->lifetimeCol = $options['db_lifetime_col'] ?? $this->lifetimeCol;
         $this->timeCol = $options['db_time_col'] ?? $this->timeCol;
-        $this->username = $options['db_username'] ?? $this->username;
-        $this->password = $options['db_password'] ?? $this->password;
-        $this->connectionOptions = $options['db_connection_options'] ?? $this->connectionOptions;
+        $this->username = $options['DB_USERNAME_PORTAL'] ?? $this->username;
+        $this->password = $options['DB_PASSWORD_PORTAL'] ?? $this->password;
+        $this->connectionOptions = $options['DB_CONNECTION_PORTAL_options'] ?? $this->connectionOptions;
         $this->lockMode = $options['lock_mode'] ?? $this->lockMode;
     }
 

@@ -111,12 +111,24 @@
                                                                         document.getElementById("{{ $item['variabel_id'] . '-total'.$m }}").innerHTML = "{{ round($total / $jumHari, 1) }} ";
                                                                         document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m }}").innerHTML =
                                                                             "{{ round(($total / $jumHari / floatval($item['bulanan'])) * 100) }} %";
+                                                                        var capaian = parseInt("{{ round(($total / $jumHari / floatval($item['bulanan'])) * 100) }}");
+                                                                        if(capaian > 90){
+                                                                            document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m}}").className = "bg-success";
+                                                                        }else if(capaian > 80){
+                                                                            document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m}}").className = "bg-warning";
+                                                                        }
                                                                     </script>
                                                                 @else
                                                                     <script>
                                                                         document.getElementById("{{ $item['variabel_id'] . '-total'.$m }}").innerHTML = "{{ round($total, 1) }}";
                                                                         document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m }}").innerHTML =
                                                                             "{{ round(($total / floatval($item['bulanan'])) * 100) }} %";
+                                                                        var capaian = parseInt("{{ round(($total / floatval($item['bulanan'])) * 100) }}");
+                                                                        if(capaian > 90){
+                                                                            document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m }}").className = "bg-success";
+                                                                        }else if(capaian > 80){
+                                                                            document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m }}").className = "bg-warning";
+                                                                        }
                                                                     </script>
                                                                 @endif
                                         
@@ -172,12 +184,24 @@
                                                                                 "{{ round($total / $jumHari, 1) }} ";
                                                                             document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'.$m }}").innerHTML =
                                                                                 "{{ round(($total / $jumHari / floatval($subvariabel['bulanan'])) * 100) }} %";
+                                                                            var capaian = parseInt("{{ round(($total / $jumHari / floatval($subvariabel['bulanan'])) * 100) }}");
+                                                                            if(capaian > 90){
+                                                                                document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'.$m }}").className = "bg-success";
+                                                                            }else if(capaian > 80){
+                                                                                document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'.$m }}").className = "bg-warning";
+                                                                            }
                                                                         </script>
                                                                     @else
                                                                         <script>
                                                                             document.getElementById("{{ $subvariabel['variabel_id'] . '-totalsub'.$m }}").innerHTML = "{{ round($total, 1) }}";
                                                                             document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'.$m }}").innerHTML =
                                                                                 "{{ round(($total / floatval($subvariabel['bulanan'])) * 100) }} %";
+                                                                            var capaian = parseInt("{{ round(($total / floatval($subvariabel['bulanan'])) * 100) }}");
+                                                                            if(capaian > 90){
+                                                                                document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'.$m }}").className = "bg-success";
+                                                                            }else if(capaian > 80){
+                                                                                document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'.$m }}").className = "bg-warning";
+                                                                            }
                                                                         </script>
                                                                     @endif
                                                                     @php
@@ -193,8 +217,15 @@
                                                                 }
                                                                 var capaian = document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m }}").innerHTML;
                                                                 var total_capaian = (Number('{{ $total_harian }}') / Number("{{ $item['bulanan'] }}")) * 100;
+                                                                
                                                                 if ("{{ $total_harian }}" != 0) {
                                                                     document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m }}").innerHTML = total_capaian.toFixed() + "%";
+                                                                    if(total_capaian > 90){
+                                                                        // console.log(total_capaian)
+                                                                        document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m }}").className = "bg-success";
+                                                                    }else if(capaian > 80){
+                                                                        document.getElementById("{{ $item['variabel_id'] . '-capaian'.$m }}").className = "bg-warning";
+                                                                    }
                                                                 }
                                                                 // document.getElementById("{{ $item['variabel_id'] . '-total' }}").innerHTML = (Number(data) + Number('{{ $total_harian }}'))/Number("{{ $item['bulanan'] }}");
                                                                 // console.log(data);

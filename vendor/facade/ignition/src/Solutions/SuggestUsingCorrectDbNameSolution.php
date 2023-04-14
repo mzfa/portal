@@ -13,9 +13,9 @@ class SuggestUsingCorrectDbNameSolution implements Solution
 
     public function getSolutionDescription(): string
     {
-        $defaultDatabaseName = env('DB_DATABASE');
+        $defaultDatabaseName = env('DB_DATABASE_PORTAL');
 
-        return "You're using the default database name `$defaultDatabaseName`. This database does not exist.\n\nEdit the `.env` file and use the correct database name in the `DB_DATABASE` key.";
+        return "You're using the default database name `$defaultDatabaseName`. This database does not exist.\n\nEdit the `.env` file and use the correct database name in the `DB_DATABASE_PORTAL` key.";
     }
 
     public function getDocumentationLinks(): array

@@ -9,7 +9,7 @@ class UseDefaultValetDbCredentialsSolution implements RunnableSolution
 {
     public function getSolutionActionDescription(): string
     {
-        return 'Pressing the button below will change `DB_USER` and `DB_PASSWORD` in your `.env` file.';
+        return 'Pressing the button below will change `DB_USER` and `DB_PASSWORD_PORTAL` in your `.env` file.';
     }
 
     public function getRunButtonText(): string
@@ -28,8 +28,8 @@ class UseDefaultValetDbCredentialsSolution implements RunnableSolution
             return;
         }
 
-        $this->ensureLineExists('DB_USERNAME', 'root');
-        $this->ensureLineExists('DB_PASSWORD', '');
+        $this->ensureLineExists('DB_USERNAME_PORTAL', 'root');
+        $this->ensureLineExists('DB_PASSWORD_PORTAL', '');
     }
 
     protected function ensureLineExists(string $key, string $value)
