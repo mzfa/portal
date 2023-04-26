@@ -36,10 +36,10 @@
                                 <tbody>
                                     @php
                                         $no = 1;
-                                        $total = 0;
-                                        
+                                        $total = 0;                                        
                                     @endphp
                                     @foreach ($variabel as $item)
+                                        
                                         <tr>
                                             <td>
                                                 <h5>{{ strtoupper($item['nama_variabel']) }}</h5>
@@ -48,6 +48,7 @@
                                             <td id="{{ $item['variabel_id'] . '-harian' }}">{{ $item['harian'] }}</td>
                                             <td class="bg-secondary" id="{{ $item['variabel_id'] . '-total'}}"></td>
                                             <td class="bg-danger" id="{{ $item['variabel_id'] . '-capaian'}}"></td>
+                                            @php $total_isi_harian=0; @endphp
                                             @for ($i = 1; $i <= $jumHari; $i++)
                                                 @php
                                                     $variabel_id = $item['variabel_id'];
@@ -62,6 +63,7 @@
                                                 @endphp
                                                 <td id="{{ $item['variabel_id'] . '-' . $i }}">
                                                     @isset($transaksi)
+                                                    @php $total_isi_harian +=1; @endphp
                                                         {{ $transaksi->value }}
                                                     @endisset
                                                 </td>
@@ -69,10 +71,10 @@
                     
                                             @if ($item['jenis_variabel'] == '1')
                                                 <script>
-                                                    document.getElementById("{{ $item['variabel_id'] . '-total'}}").innerHTML = "{{ round($total / $jumHari, 1) }} ";
+                                                    document.getElementById("{{ $item['variabel_id'] . '-total'}}").innerHTML = "{{ round($total / $total_isi_harian, 1) }} ";
                                                     document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").innerHTML =
-                                                        "{{ round(($total / $jumHari / floatval($item['bulanan'])) * 100) }} %";
-                                                    var capaian = parseInt("{{ round(($total / $jumHari / floatval($item['bulanan'])) * 100) }}");
+                                                        "{{ round(($total / $total_isi_harian / floatval($item['bulanan'])) * 100) }} %";
+                                                    var capaian = parseInt("{{ round(($total / $total_isi_harian / floatval($item['bulanan'])) * 100) }}");
                                                     if(capaian > 90){
                                                         document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-success";
                                                     }else if(capaian > 80){
@@ -109,8 +111,8 @@
                                                 <td>{{ $subvariabel['harian'] }}</td>
                                                 <td class="bg-secondary" id="{{ $subvariabel['variabel_id'] . '-totalsub'}}">
                                                 </td>
-                                                <td class="bg-danger"
-                                                    id="{{ $subvariabel['variabel_id'] . '-capaiansub'}}"></td>
+                                                <td class="bg-danger" id="{{ $subvariabel['variabel_id'] . '-capaiansub'}}"></td>
+                                                @php $total_isi_harian_det =0; @endphp
                                                 @for ($i = 1; $i <= $jumHari; $i++)
                                                     @php
                                                         $variabel_id = $subvariabel['variabel_id'];
@@ -129,6 +131,7 @@
                                                     @endphp
                                                     <td>
                                                         @isset($transaksi)
+                                                            @php $total_isi_harian_det +=1; @endphp
                                                             {{ $transaksi->value }}
                                                             <script>
                                                                 var data = document.getElementById("{{ $item['variabel_id'] . '-' . $i}}").innerHTML;
@@ -142,10 +145,10 @@
                                                 @if ($item['jenis_variabel'] == '1')
                                                     <script>
                                                         document.getElementById("{{ $subvariabel['variabel_id'] . '-totalsub'}}").innerHTML =
-                                                            "{{ round($total / $jumHari, 1) }} ";
+                                                            "{{ round($total / $total_isi_harian_det, 1) }} ";
                                                         document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'}}").innerHTML =
-                                                            "{{ round(($total / $jumHari / floatval($subvariabel['bulanan'])) * 100) }} %";
-                                                        var capaian = parseInt("{{ round(($total / $jumHari / floatval($subvariabel['bulanan'])) * 100) }}");
+                                                            "{{ round(($total / $total_isi_harian_det / floatval($subvariabel['bulanan'])) * 100) }} %";
+                                                        var capaian = parseInt("{{ round(($total / $total_isi_harian_det / floatval($subvariabel['bulanan'])) * 100) }}");
                                                         if(capaian > 90){
                                                             document.getElementById("{{ $subvariabel['variabel_id'] . '-capaiansub'}}").className = "bg-success";
                                                         }else if(capaian > 80){
