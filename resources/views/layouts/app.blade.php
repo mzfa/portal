@@ -219,10 +219,11 @@
     <script>
         $(function() {
             $("#example1").DataTable({
-                "responsive": true,
+                "responsive": false,
                 "lengthChange": false,
                 "autoWidth": false,
                 "ordering": false,
+                "bPaginate": false,
                 "buttons": [ "excel", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -234,6 +235,17 @@
                 "autoWidth": false,
                 "responsive": true,
             });
+            for (let i = 1; i <= 12; i++) {
+                // const element = array[i];
+                console.log(i)
+                $("#monitor"+i).DataTable({
+                    "responsive": false,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "ordering": false,
+                    "bPaginate": false,
+                    "buttons": [ "excel", "print", "colvis"]}).buttons().container().appendTo('#monitor'+i+'_wrapper .col-md-6:eq(0)');
+            }
         });
     </script>
     @if (Session::has('success'))
