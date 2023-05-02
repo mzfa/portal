@@ -70,17 +70,19 @@
                                             @endfor
                     
                                             @if ($item['jenis_variabel'] == '1')
-                                                <script>
-                                                    document.getElementById("{{ $item['variabel_id'] . '-total'}}").innerHTML = "{{ round($total / $total_isi_harian, 1) }} ";
-                                                    document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").innerHTML =
-                                                        "{{ round(($total / $total_isi_harian / floatval($item['bulanan'])) * 100) }} %";
-                                                    var capaian = parseInt("{{ round(($total / $total_isi_harian / floatval($item['bulanan'])) * 100) }}");
-                                                    if(capaian > 90){
-                                                        document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-success";
-                                                    }else if(capaian > 80){
-                                                        document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-warning";
-                                                    }
-                                                </script>
+                                                @if(round($total))
+                                                    <script>
+                                                        document.getElementById("{{ $item['variabel_id'] . '-total'}}").innerHTML = "{{ round($total / $total_isi_harian, 1) }} ";
+                                                        document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").innerHTML =
+                                                            "{{ round(($total / $total_isi_harian / floatval($item['bulanan'])) * 100) }} %";
+                                                        var capaian = parseInt("{{ round(($total / $total_isi_harian / floatval($item['bulanan'])) * 100) }}");
+                                                        if(capaian > 90){
+                                                            document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-success";
+                                                        }else if(capaian > 80){
+                                                            document.getElementById("{{ $item['variabel_id'] . '-capaian'}}").className = "bg-warning";
+                                                        }
+                                                    </script>
+                                                @endif
                                             @else
                                                 <script>
                                                     document.getElementById("{{ $item['variabel_id'] . '-total'}}").innerHTML = "{{ round($total, 1) }}";
