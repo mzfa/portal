@@ -13,6 +13,27 @@
                         </h3>
                     </div>
                     <div class="card-body">
+                        <form action="" method="get">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3 row">
+                                        <label for="bulan" class="col-sm-2 col-form-label">Bulan</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="bulan" name="bulan" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-3 row">
+                                        <label for="tahun" class="col-sm-2 col-form-label">Tahun</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="tahun" name="tahun" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Cari</button>
+                        </form><br>
                         <div class="table-responsive">
                             <table class="table table-bordered text-nowrap" id="example1" style="width: 100%">
                                 <thead>
@@ -23,8 +44,6 @@
                                         <th class="bg-secondary">Total</th>
                                         <th class="bg-secondary">Capaian</th>
                                         @php
-                                            $bulan = date('m');
-                                            $tahun = date('Y');
                                             // dd($bulan);
                                             $jumHari = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
                                         @endphp

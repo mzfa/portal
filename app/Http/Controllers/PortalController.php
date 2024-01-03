@@ -9,11 +9,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Livewire\Attributes\Validate;
 
 class PortalController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $request->validate([
+            'bulan' => 'integer',
+            'tahun' => 'integer',
+        ]);
+        // dd('ok');
+
+        if(isset($request->bulan)){
+            $bulan = $request->bulan;
+        }else{
+            $bulan = date('m');
+        }
+
+        if(isset($request->tahun)){
+            $tahun = $request->tahun;
+        }else{
+            $tahun = date('Y');
+        }
+
         $data = DB::table('transaksi_var')->whereNull('deleted_at')->get();
         $user_id = Auth::user()->id;
         $user_akses = DB::table('users')
@@ -51,10 +70,11 @@ class PortalController extends Controller
             }
         }
         // dd($variabel);
-        return view('portal.index', compact('data','variabel','list_variabel'));
+        return view('portal.index', compact('data','variabel','list_variabel','bulan','tahun'));
     }
     public function monitor()
     {
+        // dd('ok');
         $data = DB::table('transaksi_var')->whereNull('deleted_at')->get();
         $user_id = Auth::user()->id;
         $user_akses = DB::table('users')

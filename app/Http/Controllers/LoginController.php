@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
     public function index()
     {
-        // $user = DB::select("SELECT * FROM users");
-        // dd($user);
         return view('auth.login');
     }
     public function cek_surat_dong($id)
